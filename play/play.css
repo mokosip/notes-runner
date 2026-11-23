@@ -1,0 +1,70 @@
+/* play/play.css: the runner in the website's visual language (tokens mirror the
+   site's f-base.css; this app ships separately, so they are copied, not imported). */
+:root {
+  --paper: #f3f2ee;
+  --ink: #1b1c1e;
+  --ink-2: #5d5f63;
+  --line: #cfccc4;
+  --accent: #1f3fd6;
+  --font: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, monospace;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--paper); color: var(--ink); font: 15px/1.45 var(--font); -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-underline-offset: 3px; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.play { max-width: 1040px; margin: 0 auto; padding: 40px 24px 48px; }
+.kind { margin: 0; font-size: 12px; color: var(--accent); }
+.keys { position: absolute; right: 12px; bottom: 10px; display: flex; gap: 14px; margin: 0; font-size: 12px; color: var(--ink-2); pointer-events: none; }
+.keys div { display: flex; align-items: center; gap: 6px; }
+.keys dt, .keys dd { margin: 0; }
+.keys kbd { font: 11px var(--mono); color: var(--ink); border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; padding: 1px 6px; background: var(--paper); }
+/* Touch-only screens have no keys; the Shoot and Bomb buttons cover them. */
+@media (hover: none) and (pointer: coarse) { .keys { display: none; } }
+h1 { font-size: clamp(30px, 4.4vw, 52px); line-height: 1; letter-spacing: -.035em; font-weight: 500; margin: 6px 0 10px; }
+.lede { margin: 0 0 24px; color: var(--ink-2); max-width: 38em; }
+
+.stage { position: relative; aspect-ratio: 16 / 9; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); outline: none; }
+.stage:focus-visible { box-shadow: inset 0 0 0 2px var(--accent); }
+.stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; image-rendering: pixelated; }
+.idle { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; color: var(--ink-2); pointer-events: none; }
+.idle[hidden] { display: none; }
+
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 14px 0 34px; }
+.controls button, .code-actions button, .presets button { border: 1px solid var(--line); background: var(--paper); border-radius: 99px; padding: 6px 14px; cursor: pointer; font-size: 14px; }
+.controls button:hover, .code-actions button:hover, .presets button:hover { border-color: var(--ink-2); }
+.controls .primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.sep { width: 1px; height: 20px; background: var(--line); margin: 0 4px; }
+.status { font: 12px var(--mono); color: var(--ink-2); margin-left: 6px; }
+
+.patterns h2 { font-size: 12px; font-weight: 400; color: var(--ink-2); margin: 0 0 8px; }
+.presets { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.presets button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.code-label { display: block; font-size: 12px; color: var(--ink-2); margin-bottom: 6px; }
+textarea { width: 100%; min-height: 128px; resize: vertical; border: 1px solid var(--line); background: transparent; color: var(--ink); padding: 12px 14px; font: 13px/1.6 var(--mono); border-radius: 4px; }
+textarea:focus { outline: none; border-color: var(--accent); }
+.code-actions { display: flex; align-items: center; gap: 12px; margin-top: 8px; }
+.error { font: 12px var(--mono); color: #b3261e; }
+
+.legend { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px 24px; margin: 36px 0 0; padding-top: 16px; border-top: 1px solid var(--line); font-size: 13px; }
+.legend div { margin: 0; }
+.legend dt { color: var(--ink-2); font: 12px var(--mono); }
+.legend dd { margin: 2px 0 0; }
+.foot { margin-top: 40px; font-size: 12px; color: var(--ink-2); }
+
+@media (max-width: 640px) {
+  .play { padding: 24px 16px 40px; }
+  .stage { aspect-ratio: 4 / 3; }
+}
+
+
+/* Embedded (?embed=1 inside a frame): the host shows title and frame. */
+.embed .play { padding: 4px 24px 20px; max-width: none; }
+.embed .head h1, .embed .head .kind { display: none; }
+.embed .lede { margin-bottom: 14px; font-size: 14px; }
+.embed .controls { margin-bottom: 22px; }
+.embed .legend { margin-top: 24px; }
+.embed .foot { margin-top: 20px; }

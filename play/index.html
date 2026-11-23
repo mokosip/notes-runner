@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A game played by notes</title>
+<script>
+  // Embedded in a host page (?embed=1 inside a frame): quiet layout before the first
+  // paint, not after the Strudel module has loaded.
+  if (new URLSearchParams(location.search).has('embed') && window.parent !== window) {
+    document.documentElement.classList.add('embed');
+  }
+</script>
+<link rel="stylesheet" href="play.css">
+<script type="module" src="main.js"></script>
+</head>
+<body>
+<main class="play">
+  <header class="head">
+    <p class="kind">Instrument · runs in your browser</p>
+    <h1>A game played by notes</h1>
+    <p class="lede">The music builds the level. Kicks are hurdles, snares are spikes, melodies are platforms. Shoot a note before it sounds and it disappears from the music.</p>
+  </header>
+
+  <section class="stage" id="stage" tabindex="0" aria-label="Game. Space shoots, B throws a bomb.">
+    <canvas id="screen" aria-hidden="true"></canvas>
+    <p class="idle" id="idle">Press play to start the music.</p>
+    <dl class="keys" aria-label="Keys">
+      <div><dt><kbd>Space</kbd></dt><dd>shoot</dd></div>
+      <div><dt><kbd>B</kbd></dt><dd>bomb</dd></div>
+    </dl>
+  </section>
+
+  <div class="controls">
+    <button type="button" id="play" class="primary">▶ Play</button>
+    <button type="button" id="stop">Stop</button>
+    <span class="sep" aria-hidden="true"></span>
+    <button type="button" id="shoot" title="Space">Shoot</button>
+    <button type="button" id="bomb" title="B">Bomb</button>
+    <span class="status" id="status" role="status" aria-live="polite"></span>
+  </div>
+
+  <section class="patterns" aria-labelledby="patterns-title">
+    <h2 id="patterns-title">Pattern</h2>
+    <div class="presets" id="presets" role="group" aria-label="Start from"></div>
+    <label class="code-label" for="code">Change it and press Run (⌘/Ctrl + Enter). One line per layer.</label>
+    <textarea id="code" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea>
+    <div class="code-actions"><button type="button" id="run">Run</button><span class="error" id="error" role="alert"></span></div>
+  </section>
+
+  <dl class="legend">
+    <div><dt>kick (bd)</dt><dd>hurdle</dd></div>
+    <div><dt>snare, clap (sd, cp)</dt><dd>spike</dd></div>
+    <div><dt>melody (note, arpy, synths)</dt><dd>platform, higher note = higher</dd></div>
+    <div><dt>hi-hats and the rest</dt><dd>rhythm rows below the ground</dd></div>
+    <div><dt>louder (gain)</dt><dd>taller obstacle</dd></div>
+  </dl>
+
+  <footer class="foot">
+    Sound and patterns by <a href="https://strudel.cc">Strudel</a>, samples from <a href="https://github.com/tidalcycles/Dirt-Samples">Dirt-Samples</a>.
+    This app is free software under the <a href="../LICENSE">GNU AGPL v3 or later</a>; <a href="https://github.com/mokosip/notes-runner">source code</a>.
+  </footer>
+</main>
+</body>
+</html>
