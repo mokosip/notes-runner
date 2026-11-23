@@ -71,6 +71,8 @@ export async function startStrudel({ onEvent, onForecast }) {
     setTimeout(() => onEvent(event), Math.max(0, (targetTime - currentTime) * 1000));
   };
 
+  // iOS Safari mutes web audio with the silent switch unless the page plays as media (Safari 17+).
+  if (navigator.audioSession) navigator.audioSession.type = 'playback';
   const repl = await initStrudel({
     prebake: () => samples(DIRT),
     // Every evaluation passes through here: keep the clean pattern for the
